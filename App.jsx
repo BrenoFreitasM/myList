@@ -14,10 +14,11 @@ import Empty from "./src/assets/clipboard.png";
 import Button from "./src/components/Button";
 import Header from "./src/components/Header";
 import Input from "./src/components/Input";
+import Item from "./src/components/Item";
 import { COLORS } from "./src/theme/colors";
 
 export default function App() {
-  const [list, setList] = useState([]);
+  const [list, setList] = useState(["marcos", "breno"]);
 
   const renderEmptyList = () => (
     <View style={styles.empty}>
@@ -55,8 +56,14 @@ export default function App() {
                 <FlatList
                   data={list}
                   keyExtractor={(item, index) => item + index}
-                  renderItem={({ item }) => console.log(item)}
+                  renderItem={({ item }) => <Item item={item} />}
                   ListEmptyComponent={renderEmptyList}
+                  contentContainerStyle={{
+                    paddingTop: 8,
+                    paddingHorizontal: 24,
+                    paddingBottom: 48,
+                    gap: 8,
+                  }}
                 />
               </View>
             </>
