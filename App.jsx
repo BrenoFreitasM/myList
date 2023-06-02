@@ -18,7 +18,12 @@ import Item from "./src/components/Item";
 import { COLORS } from "./src/theme/colors";
 
 export default function App() {
-  const [list, setList] = useState(["marcos", "breno"]);
+  const [list, setList] = useState([]);
+  const [task, setTask] = useState("");
+
+  function handleAddItem() {
+    console.log("Me apertou!", task);
+  }
 
   const renderEmptyList = () => (
     <View style={styles.empty}>
@@ -42,8 +47,11 @@ export default function App() {
 
               <View style={styles.container}>
                 <View style={styles.add}>
-                  <Input />
-                  <Button />
+                  <Input
+                    defaultValue={task}
+                    onChangeText={(inputValue) => setTask(inputValue)}
+                  />
+                  <Button onPress={handleAddItem} />
                 </View>
 
                 {/* {lista.map((item, index) => (
