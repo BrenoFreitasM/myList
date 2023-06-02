@@ -1,12 +1,15 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import {
+  Alert,
   FlatList,
   Image,
   Keyboard,
   KeyboardAvoidingView,
+  Platform,
   StyleSheet,
   Text,
+  ToastAndroid,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
@@ -22,7 +25,19 @@ export default function App() {
   const [task, setTask] = useState("");
 
   function handleAddItem() {
-    console.log("Me apertou!", task);
+    if (!task) {
+      Platform.OS === "android"
+        ? ToastAndroid.show("Digite algo!", ToastAndroid.BOTTOM)
+        : Alert.alert("Campo vazio!", "Digite uma tarefa para adicionar");
+      return;
+    }
+
+    if (list.includes(task)) {
+      return Alert.alert("Tarefa já adicionada", "Digite outra tarefa");
+    }
+
+    setList((prevState) => [...prevState, task]);
+    setTask(""); // Clean input
   }
 
   const renderEmptyList = () => (
@@ -70,6 +85,7 @@ export default function App() {
                     paddingTop: 8,
                     paddingHorizontal: 24,
                     paddingBottom: 48,
+                    flexDirection: "column-reverse",
                     gap: 8,
                   }}
                 />
