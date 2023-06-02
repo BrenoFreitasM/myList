@@ -1,13 +1,23 @@
 import { Ionicons } from "@expo/vector-icons";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { COLORS } from "../../theme/colors";
+import { useState } from "react";
 
 export default function Item({ item }) {
+  const [isSelected, setIsSelected] = useState(false);
+
   return (
-    <View style={styles.container}>
-      <Ionicons name={"radio-button-off"} size={24} color={COLORS.ciano} />
-      <Text style={styles.title}>{item}</Text>
-    </View>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => setIsSelected(!isSelected)}
+    >
+      <Ionicons
+        name={isSelected ? "checkmark-circle" : "radio-button-off"}
+        size={24}
+        color={isSelected ? COLORS.blue500 : COLORS.ciano}
+      />
+      <Text style={[styles.title, isSelected && styles.marked]}>{item}</Text>
+    </TouchableOpacity>
   );
 }
 
@@ -25,5 +35,9 @@ const styles = StyleSheet.create({
   title: {
     color: COLORS.white,
     fontSize: 16,
+  },
+  marked: {
+    color: COLORS.gray300,
+    textDecorationLine: "line-through",
   },
 });
