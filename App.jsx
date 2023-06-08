@@ -42,6 +42,12 @@ export default function App() {
   }
 
   function handleCheck(itemSelected) {
+    if (selectedList.includes(itemSelected)) {
+      return setSelectedList((prevState) =>
+        prevState.filter((tasks) => tasks !== itemSelected)
+      );
+    }
+
     setSelectedList((prevState) => [...prevState, itemSelected]);
   }
 
@@ -96,7 +102,9 @@ export default function App() {
                       Concluídas
                     </Text>
                     <View style={styles.quantity}>
-                      <Text style={styles.qtdNumber}>0</Text>
+                      <Text style={styles.qtdNumber}>
+                        {selectedList.length}
+                      </Text>
                     </View>
                   </View>
                 </View>
