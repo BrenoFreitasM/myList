@@ -1,15 +1,20 @@
 import { Ionicons } from "@expo/vector-icons";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { COLORS } from "../../theme/colors";
 import { useState } from "react";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { COLORS } from "../../theme/colors";
 
-export default function Item({ item }) {
+export default function Item({ item, selected }) {
   const [isSelected, setIsSelected] = useState(false);
+
+  function handleSelection() {
+    setIsSelected(!isSelected);
+    selected(item);
+  }
 
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => setIsSelected(!isSelected)}
+      onPress={handleSelection}
     >
       <Ionicons
         name={isSelected ? "checkmark-circle" : "radio-button-off"}

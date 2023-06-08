@@ -23,6 +23,7 @@ import { COLORS } from "./src/theme/colors";
 export default function App() {
   const [list, setList] = useState([]);
   const [task, setTask] = useState("");
+  const [selectedList, setSelectedList] = useState([]);
 
   function handleAddItem() {
     if (!task) {
@@ -38,6 +39,16 @@ export default function App() {
 
     setList((prevState) => [...prevState, task]);
     setTask(""); // Clean input
+  }
+
+  function handleCheck(itemSelected) {
+    if (selectedList.includes(itemSelected)) {
+      return setSelectedList((prevState) =>
+        prevState.filter((tasks) => tasks !== itemSelected)
+      );
+    }
+
+    setSelectedList((prevState) => [...prevState, itemSelected]);
   }
 
   const renderEmptyList = () => (
@@ -76,10 +87,34 @@ export default function App() {
                   </View>
                 ))} */}
 
+                <View style={styles.length}>
+                  <View style={styles.type}>
+                    <Text style={styles.lengthTitle}>Criadas</Text>
+                    <View style={styles.quantity}>
+                      <Text style={styles.qtdNumber}>{list.length}</Text>
+                    </View>
+                  </View>
+
+                  <View style={styles.type}>
+                    <Text
+                      style={[styles.lengthTitle, { color: COLORS.blue500 }]}
+                    >
+                      Concluídas
+                    </Text>
+                    <View style={styles.quantity}>
+                      <Text style={styles.qtdNumber}>
+                        {selectedList.length}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+
                 <FlatList
                   data={list}
                   keyExtractor={(item, index) => item + index}
-                  renderItem={({ item }) => <Item item={item} />}
+                  renderItem={({ item }) => (
+                    <Item item={item} selected={handleCheck} />
+                  )}
                   ListEmptyComponent={renderEmptyList}
                   contentContainerStyle={{
                     paddingTop: 8,
@@ -123,5 +158,37 @@ const styles = StyleSheet.create({
   emptyDescription: {
     color: COLORS.gray300,
     fontSize: 14,
+  },
+  length: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginTop: 32,
+    marginHorizontal: 24,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.gray500,
+    paddingBottom: 16,
+  },
+  lengthTitle: {
+    color: COLORS.ciano,
+    fontWeight: "bold",
+  },
+  type: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  quantity: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: COLORS.gray500,
+    paddingVertical: 2,
+    paddingHorizontal: 8,
+    borderRadius: 99,
+    marginLeft: 8,
+  },
+  qtdNumber: {
+    color: COLORS.white,
+    fontSize: 13,
+    fontWeight: "bold",
   },
 });
