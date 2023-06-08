@@ -23,6 +23,7 @@ import { COLORS } from "./src/theme/colors";
 export default function App() {
   const [list, setList] = useState([]);
   const [task, setTask] = useState("");
+  const [selectedList, setSelectedList] = useState([]);
 
   function handleAddItem() {
     if (!task) {
@@ -38,6 +39,10 @@ export default function App() {
 
     setList((prevState) => [...prevState, task]);
     setTask(""); // Clean input
+  }
+
+  function handleCheck(itemSelected) {
+    setSelectedList((prevState) => [...prevState, itemSelected]);
   }
 
   const renderEmptyList = () => (
@@ -80,7 +85,7 @@ export default function App() {
                   <View style={styles.type}>
                     <Text style={styles.lengthTitle}>Criadas</Text>
                     <View style={styles.quantity}>
-                      <Text style={styles.qtdNumber}>0</Text>
+                      <Text style={styles.qtdNumber}>{list.length}</Text>
                     </View>
                   </View>
 
@@ -99,7 +104,9 @@ export default function App() {
                 <FlatList
                   data={list}
                   keyExtractor={(item, index) => item + index}
-                  renderItem={({ item }) => <Item item={item} />}
+                  renderItem={({ item }) => (
+                    <Item item={item} selected={handleCheck} />
+                  )}
                   ListEmptyComponent={renderEmptyList}
                   contentContainerStyle={{
                     paddingTop: 8,
