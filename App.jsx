@@ -76,6 +76,26 @@ export default function App() {
                   </View>
                 ))} */}
 
+                <View style={styles.length}>
+                  <View style={styles.type}>
+                    <Text style={styles.lengthTitle}>Criadas</Text>
+                    <View style={styles.quantity}>
+                      <Text style={styles.qtdNumber}>0</Text>
+                    </View>
+                  </View>
+
+                  <View style={styles.type}>
+                    <Text
+                      style={[styles.lengthTitle, { color: COLORS.blue500 }]}
+                    >
+                      Concluídas
+                    </Text>
+                    <View style={styles.quantity}>
+                      <Text style={styles.qtdNumber}>0</Text>
+                    </View>
+                  </View>
+                </View>
+
                 <FlatList
                   data={list}
                   keyExtractor={(item, index) => item + index}
@@ -123,5 +143,37 @@ const styles = StyleSheet.create({
   emptyDescription: {
     color: COLORS.gray300,
     fontSize: 14,
+  },
+  length: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginTop: 32,
+    marginHorizontal: 24,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.gray500,
+    paddingBottom: 16,
+  },
+  lengthTitle: {
+    color: COLORS.ciano,
+    fontWeight: "bold",
+  },
+  type: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  quantity: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: COLORS.gray500,
+    paddingVertical: 2,
+    paddingHorizontal: 8,
+    borderRadius: 99,
+    marginLeft: 8,
+  },
+  qtdNumber: {
+    color: COLORS.white,
+    fontSize: 13,
+    fontWeight: "bold",
   },
 });
