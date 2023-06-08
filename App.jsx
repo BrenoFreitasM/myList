@@ -119,7 +119,6 @@ export default function App() {
                   ListEmptyComponent={renderEmptyList}
                   contentContainerStyle={{
                     paddingTop: 8,
-                    // paddingHorizontal: 24,
                     paddingBottom: 48,
                     flexDirection: "column-reverse",
                     gap: 8,
