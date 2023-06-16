@@ -52,6 +52,10 @@ export default function App() {
     setSelectedList((prevState) => [...prevState, itemSelected]);
   }
 
+  function handleRemove(itemToRemove) {
+    console.log("Removing item", itemToRemove);
+  }
+
   const renderEmptyList = () => (
     <View style={styles.empty}>
       <Image source={Empty} />
@@ -114,7 +118,11 @@ export default function App() {
                   data={list}
                   keyExtractor={(item, index) => item + index}
                   renderItem={({ item }) => (
-                    <Item item={item} selected={handleCheck} />
+                    <Item
+                      item={item}
+                      selected={handleCheck}
+                      remove={handleRemove}
+                    />
                   )}
                   ListEmptyComponent={renderEmptyList}
                   contentContainerStyle={{
