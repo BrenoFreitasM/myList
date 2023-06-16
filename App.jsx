@@ -53,10 +53,22 @@ export default function App() {
   }
 
   function handleRemove(itemToRemove) {
-    console.log("Removing item", itemToRemove);
-
-    setList((prevState) =>
-      prevState.filter((eachTask) => eachTask !== itemToRemove)
+    Alert.alert(
+      "Remover tarefa!",
+      `deseja remover esssa tarefa?\n"${itemToRemove}"`,
+      [
+        {
+          text: "Remover",
+          onPress: () =>
+            setList((prevState) =>
+              prevState.filter((eachTask) => eachTask !== itemToRemove)
+            ),
+        },
+        {
+          text: "Cancelar",
+          style: "cancel",
+        },
+      ]
     );
   }
 
