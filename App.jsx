@@ -54,6 +54,10 @@ export default function App() {
 
   function handleRemove(itemToRemove) {
     console.log("Removing item", itemToRemove);
+
+    setList((prevState) =>
+      prevState.filter((eachTask) => eachTask !== itemToRemove)
+    );
   }
 
   const renderEmptyList = () => (
