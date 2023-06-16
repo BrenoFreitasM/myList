@@ -52,6 +52,26 @@ export default function App() {
     setSelectedList((prevState) => [...prevState, itemSelected]);
   }
 
+  function handleRemove(itemToRemove) {
+    Alert.alert(
+      "Remover tarefa!",
+      `deseja remover esssa tarefa?\n"${itemToRemove}"`,
+      [
+        {
+          text: "Remover",
+          onPress: () =>
+            setList((prevState) =>
+              prevState.filter((eachTask) => eachTask !== itemToRemove)
+            ),
+        },
+        {
+          text: "Cancelar",
+          style: "cancel",
+        },
+      ]
+    );
+  }
+
   const renderEmptyList = () => (
     <View style={styles.empty}>
       <Image source={Empty} />
@@ -114,7 +134,11 @@ export default function App() {
                   data={list}
                   keyExtractor={(item, index) => item + index}
                   renderItem={({ item }) => (
-                    <Item item={item} selected={handleCheck} />
+                    <Item
+                      item={item}
+                      selected={handleCheck}
+                      remove={handleRemove}
+                    />
                   )}
                   ListEmptyComponent={renderEmptyList}
                   contentContainerStyle={{

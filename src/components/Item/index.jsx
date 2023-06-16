@@ -8,10 +8,10 @@ import {
   RectButton,
 } from "react-native-gesture-handler";
 
-export default function Item({ item, selected }) {
+export default function Item({ item, selected, remove}) {
   const [isSelected, setIsSelected] = useState(false);
-
-  function handleMark(item) {
+  
+  function handleMark() {
     selected(item);
     setIsSelected(!isSelected);
   }
@@ -22,7 +22,7 @@ export default function Item({ item, selected }) {
         overshootRight={false}
         containerStyle={{ paddingHorizontal: 24 }}
         renderRightActions={() => (
-          <RectButton style={styles.remove}>
+          <RectButton style={styles.remove} onPress={() => remove(item)}> 
             <Feather name="trash" size={20} color={COLORS.white} />
           </RectButton>
         )}
@@ -30,7 +30,7 @@ export default function Item({ item, selected }) {
         <RectButton
           style={styles.container}
           activeOpacity={0.6}
-          onPress={() => handleMark(item)}
+          onPress={handleMark}
         >
           <Ionicons
             name={isSelected ? "checkmark-circle" : "radio-button-off"}
